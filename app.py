@@ -62,7 +62,7 @@ def edit(id):
         else:
             conn = get_db_connection()
             conn.execute('UPDATE posts SET title = ?, content = ?, WHERE id = ?',
-                         (title, content, id))   
+                         (title, content, id)).fetchall()
 
             conn.commit()
             conn.close()
@@ -74,7 +74,7 @@ def edit(id):
 def delete(id):
     post = get_post(id)
     conn = get_db_connection()
-    conn.execute('DELETE FROM posts WHERE id = ?', (id,))
+    conn.execute('DELETE FROM posts WHERE id = ?', (id,)).fetchall()
     conn.commit()
     conn.close()
     flash('"{}" was successfully deleted!'.format(post['title']))
